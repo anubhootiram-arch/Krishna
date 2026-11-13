@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PkBae</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f3f7;
+  color: #222;
+}
+
+header {
+  background: #673ab7;
+  color: white;
+  padding: 18px;
+  text-align: center;
+}
+
+section {
+  padding: 15px;
+}
+
+#authSection {
+  max-width: 420px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+#appSection {
+  display: none;
+  padding-bottom: 80px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+
+button {
+  padding: 11px 15px;
+  margin: 5px 2px;
+  border: none;
+  border-radius: 7px;
+  background: #673ab7;
+  color: white;
+  cursor: pointer;
+}
+
+.card {
+  background: white;
+  margin: 12px 0;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: white;
+  padding: 8px;
+  gap: 4px;
+}
+
+nav button {
+  flex: 1 1 25%;
+}
+
+.page {
+  display: block;
+  padding: 12px;
+}
+
+h2 {
+  color: #673ab7;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>PkBae</h1>
+  <p>Connect With Everyone</p>
+</header>
+
+<!-- LOGIN AND SIGNUP -->
+
+<div id="authSection">
+
+  <h2>Welcome to PkBae</h2>
+
+  <input
+    type="email"
+    id="email"
+    placeholder="Enter Email"
+  >
+
+  <input
+    type="password"
+    id="password"
+    placeholder="Enter Password"
+  >
+
+  <button id="signupBtn">Create Account</button>
+
+  <button id="loginBtn">Login</button>
+
+  <p id="authMessage"></p>
+
+</div>
+
+<!-- MAIN APP -->
+
+<div id="appSection">
+
+  <nav id="bottomNav">
+    <button onclick="showPage('homePage')">Home</button>
+    <button onclick="showPage('searchPage')">Search</button>
+    <button onclick="showPage('reelsPage')">Reels</button>
+    <button onclick="showPage('chatPage')">Chat</button>
+    <button onclick="showPage('profilePage')">Profile</button>
+    <button onclick="showPage('settingsPage')">Settings</button>
+  </nav>
+
+  <!-- HOME -->
+
+  <div id="homePage" class="page">
+
+    <h2>Home Feed</h2>
+
+    <div class="card">
+      <h3>Create Post</h3>
+
+      <textarea
+        id="captionInput"
+        placeholder="What's on your mind?"
+      ></textarea>
+
+      <input type="file" id="postFile">
+
+      <button id="createPostBtn">Publish Post</button>
+    </div>
+
+    <h3>Stories</h3>
+
+    <button id="addStoryBtn">Add Story</button>
+
+    <div id="stories" class="card"></div>
+
+    <h3>Posts</h3>
+
+    <div id="feed"></div>
+
+    <div id="commentList"></div>
+
+    <input
+      id="commentInput"
+      placeholder="Write a comment"
+    >
+
+    <button id="sendCommentBtn">Send Comment</button>
+
+  </div>
+
+  <!-- SEARCH -->
+
+  <div id="searchPage" class="page hidden">
+
+    <h2>Search Users</h2>
+
+    <input
+      id="searchInput"
+      placeholder="Search by name"
+    >
+
+    <div id="searchResults"></div>
+
+  </div>
+
+  <!-- REELS -->
+
+  <div id="reelsPage" class="page hidden">
+
+    <h2>Reels</h2>
+
+    <div id="reelsFeed">
+      Reels will appear here.
+    </div>
+
+  </div>
+
+  <!-- CHAT -->
+
+  <div id="chatPage" class="page hidden">
+
+    <h2>Chat</h2>
+
+    <h3>Users</h3>
+
+    <div id="chatUsers"></div>
+
+    <h3>Messages</h3>
+
+    <div id="messages" class="card"></div>
+
+    <input
+      id="messageInput"
+      placeholder="Write a message"
+    >
+
+    <button id="sendMessageBtn">Send</button>
+
+  </div>
+
+  <!-- PROFILE -->
+
+  <div id="profilePage" class="page hidden">
+
+    <h2>My Profile</h2>
+
+    <h3 id="profileName">User</h3>
+
+    <p id="profileBio"></p>
+
+    <input
+      id="editName"
+      placeholder="Your Name"
+    >
+
+    <textarea
+      id="editBio"
+      placeholder="Your Bio"
+    ></textarea>
+
+    <button id="saveProfileBtn">Save Profile</button>
+
+  </div>
+
+  <!-- SETTINGS -->
+
+  <div id="settingsPage" class="page hidden">
+
+    <h2>Settings</h2>
+
+    <button id="blockedUsersBtn">Blocked Users</button>
+
+    <div id="blockedUsersList" style="display:none"></div>
+
+    <hr>
+
+    <button id="deleteAccountBtn">Request Account Deletion</button>
+
+    <hr>
+
+    <button id="privacyPolicyBtn">Privacy Policy</button>
+
+    <button id="termsBtn">Terms & Conditions</button>
+
+    <hr>
+
+    <div id="privacyPolicySection" style="display:none" class="card">
+
+      <h3>Privacy Policy</h3>
+
+      <p>
+        PkBae collects account information and content that
+        users choose to submit. Do not share passwords or
+        sensitive personal information.
+      </p>
+
+      <button id="backFromPrivacyBtn">Back</button>
+
+    </div>
+
+    <div id="termsSection" style="display:none" class="card">
+
+      <h3>Terms & Conditions</h3>
+
+      <p>
+        Users must use PkBae respectfully. Harassment,
+        impersonation, harmful content and misuse are not allowed.
+      </p>
+
+      <button id="backFromTermsBtn">Back</button>
+
+    </div>
+
+    <button id="notificationsBtn">Notifications</button>
+
+    <div id="notificationList"></div>
+
+    <button id="themeBtn">Change Theme</button>
+
+    <button id="logoutBtn">Logout</button>
+
+  </div>
+
+</div>
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.style.display = "none";
+  });
+
+  const selectedPage = document.getElementById(pageId);
+
+  if (selectedPage) {
+    selectedPage.style.display = "block";
+  }
+}
+</script>
+
+<script type="module" src="./app.js"></script>
+
+</body>
+</html>
